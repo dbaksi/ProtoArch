@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <h:head>
+        <title>Welcome</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body>
+         <ui:composition template="./newTemplate.xhtml">
+             
+            <ui:define name="top">
+                top
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+                        <h3>List of As Page</h3>
+                   
+                       
+                            <h:panelGrid columns="3"
+                                       columnClasses="rightalign,leftalign,leftalign">
+
+                                <h:outputLabel value="a1 :" for="a1"/>
+                                <h:outputText value="#{asManagedBean.a1}" />
+                                <h:message for="a1" />
+                                
+                                <h:outputLabel value="a2 :" for="a2"/>
+                                <h:outputText   value="#{asManagedBean.a2}" />
+                                <h:message for="a2" />
+
+                                <h:outputLabel value="a3 :" for="a3"/>
+                                <h:outputText   value="#{asManagedBean.a3}" />
+                                <h:message for="a3" />
+                                
+                                <h:outputLabel value="a4 :" for="a4"/>
+                                <h:outputText   value="#{asManagedBean.a4}" />
+                                <h:message for="a4" />
+
+                                <h:outputLabel value="a5 :" for="a5"/>
+                                <h:outputText   value="#{asManagedBean.a5}" />
+                                <h:message for="a5" />
+                               
+                                <h:dataTable binding="#{selectedBBean.datatableBs}" value="#{asManagedBean.assocBs}" var="bList">
+                                                <h:column>
+                                                    <f:facet name="header">b1</f:facet>  
+                                                    <h:outputText value="#{bList.b1}"/>
+                                                </h:column> 
+                                                <h:column>
+                                                    <f:facet name="header">b2</f:facet>  
+                                                    <h:outputText value="#{bList.b2}"/>
+                                                </h:column> 
+                                                <h:column>
+                                                    <f:facet name="header">b3</f:facet>  
+                                                    <h:outputText value="#{bList.b3}"/>
+                                                </h:column> 
+                                                <h:column>
+                                                    <f:facet name="header">b4</f:facet>  
+                                                    <h:outputText value="#{bList.b4}"/>
+                                                </h:column> 
+                                                <h:column>
+                                                    <f:facet name="header">b5</f:facet>  
+                                                    <h:outputText value="#{bList.b5}"/>
+                                                </h:column> 
+                                                                    
+                                                 <h:column>
+                                                    <f:facet name="header">Select</f:facet>
+                                                    <h:form>
+                                                        <h:commandButton value="Select" action="#{selectedBBean.addB()}">
+                                                            <f:setPropertyActionListener target="#{selectedBBean.selectedB}" value="#{bList}" />
+                                                            
+                                                        </h:commandButton>
+                                                    </h:form>
+                                                </h:column> 
+                                    
+                                                <h:column>
+                                                    <f:facet name="header">Create</f:facet>
+                                                    <h:form>
+                                                    <h:commandButton value="Create"   action="#{bsManagedBean.createAction(assocBs)}" />
+                                                    </h:form>
+                                                </h:column>
+                                </h:dataTable>
+
+                                 <h:form>
+                                <h:commandButton id="Home" value="Back"
+                                    action="index" />
+                                </h:form>
+                                
+                            </h:panelGrid>
+   
+          </ui:define> 
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>                   
+
+         </ui:composition>
+    </h:body>
+</html>
+
+					  
+
+

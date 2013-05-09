@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Welcome</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body>
+         <ui:composition template="./newTemplate.xhtml">
+             
+            <ui:define name="top">
+                top
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+                        <h3>Create an A</h3>
+             
+        
+                        <h:form>
+                            <h:panelGrid columns="3"
+                                       columnClasses="rightalign,leftalign,leftalign">
+                                
+                                <h:outputLabel value="a1 :" for="a1"/>
+                                <h:inputText id="a1" label="a1"
+                                             required="true"
+                                             value="#{asManagedBean.a1}" />
+                                <h:message for="a1" />
+                                
+                                <h:outputLabel value="a2 :" for="a2"/>
+                                <h:inputText id="a2" label="a2"
+                                             required="true"
+                                             value="#{asManagedBean.a2}" />
+                                <h:message for="a2" />
+                                
+                                <h:outputLabel value="a3 :" for="a3"/>
+                                <h:inputText id="a3" label="a3"
+                                             required="true"
+                                             value="#{asManagedBean.a3}" />
+                                <h:message for="a3" />
+                                
+                                <h:outputLabel value="a4 :" for="a4"/>
+                                <h:inputText id="a4" label="a4"
+                                             required="true"
+                                             value="#{asManagedBean.a4}" />
+                                <h:message for="a4" />
+                                
+                                <h:outputLabel value="a5 :" for="a5"/>
+                                <h:inputText id="a5" label="a5"
+                                             required="true"
+                                             value="#{asManagedBean.a5}" />
+                                <h:message for="a5" />
+
+                                <h:commandButton id="Submit" 
+                                                 value="Submit"    action="#{asManagedBean.createAnA()}" >
+                                </h:commandButton>
+                            </h:panelGrid>
+
+                        </h:form>
+       
+          </ui:define> 
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>                   
+
+         </ui:composition>
+    </h:body>
+</html>
+
+					  
+

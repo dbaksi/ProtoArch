@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>An a with associated Bs</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./newTemplate.xhtml">
+
+            <ui:define name="top">
+                top
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+                Effect of a form submission test
+                <h:panelGrid columns="3"
+                             columnClasses="rightalign,leftalign,leftalign">
+
+                    <h:outputLabel value="a1 :" for="a1"/>
+                    <h:outputText value="#{asManagedBean.a1}" />
+                    <h:message for="a1" />
+                    
+                    <h:outputLabel value="a2 :" for="a2"/>
+                    <h:outputText value="#{asManagedBean.a2}" />
+                    <h:message for="a2" />
+                    
+                    <h:outputLabel value="a3 :" for="a3"/>
+                    <h:outputText value="#{asManagedBean.a3}" />
+                    <h:message for="a3" />
+                    
+                    <h:outputLabel value="a4 :" for="a4"/>
+                    <h:outputText value="#{asManagedBean.a4}" />
+                    <h:message for="a4" />
+
+                    <h:outputLabel value="a5 :" for="a5"/>
+                    <h:outputText value="#{asManagedBean.a5}" />
+                    <h:message for="a5" />
+                    
+                    
+                    <h:form>		                                        
+                        <h:commandButton id="Back" 
+                                         value="Create a B"  action="createB" >
+                        </h:commandButton>
+                    </h:form>
+                </h:panelGrid>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</html>
