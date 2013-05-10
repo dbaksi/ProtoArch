@@ -360,5 +360,13 @@ public class AsManagedBean implements Serializable {
         return "viewAbs?faces-redirect=true";
     }
       
+    public void updateRemoveBList(B b) {
+        bList.remove(b);
+    }
+    
+    public void updateAddBList(B b) {
+        bList.add(b);
+    }
+
 }
     

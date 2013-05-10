@@ -65,8 +65,11 @@ private BsManagedBean bBean;
         
         FacesContext facesContext = FacesContext.getCurrentInstance();
         BsManagedBean neededBean = (BsManagedBean)facesContext.getApplication().createValueBinding("#{bsManagedBean}").getValue(facesContext);
+        AsManagedBean mainBean = (AsManagedBean)facesContext.getApplication().createValueBinding("#{asManagedBean}").getValue(facesContext);
 
        // return "selectedB";
+        mainBean.updateRemoveBList(selectedB);
+        
         return neededBean.deleteAction(selectedB);
         
     }

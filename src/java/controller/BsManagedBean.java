@@ -113,13 +113,16 @@ public class BsManagedBean implements Serializable {
          System.out.println(myA.getA_id());
         
         BEntity anEnB = new BEntity(this.getB1(), this.getB2(), this.getB3(), this.getB4(), this.getB5(), myA);
-               
+        B newB = new B(this.getB1(), this.getB2(), this.getB3(), this.getB4(), this.getB5());   
         em.persist(anEnB);
         
-        em.flush();
+ //       em.flush();
        
         em.getTransaction().commit();
         em.refresh(anEnB);
+        
+        AsManagedBean mainBean = (AsManagedBean)facesContext.getApplication().createValueBinding("#{asManagedBean}").getValue(facesContext);
+        mainBean.updateAddBList(newB);        
         return ("viewAbs?faces-redirect=true");
  
     }
@@ -147,7 +150,7 @@ public class BsManagedBean implements Serializable {
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         AEntity myA = (AEntity) session.getAttribute("refId");  
        */
-       
+
        return "viewAbs?faces-redirect=true";
 
     }

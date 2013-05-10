@@ -48,7 +48,7 @@
                                 <h:outputText   value="#{asManagedBean.a5}" />
                                 <h:message for="a5" />
                                
-                                <h:dataTable binding="#{selectedBBean.datatableBs}" value="#{asManagedBean.assocBs}" var="bList">
+                                <h:dataTable  binding="#{selectedBBean.datatableBs}" value="#{asManagedBean.assocBs}" var="bList">
                                                 <h:column>
                                                     <f:facet name="header">b1</f:facet>  
                                                     <h:outputText value="#{bList.b1}"/>
@@ -73,9 +73,8 @@
                                                  <h:column>
                                                     <f:facet name="header">Select</f:facet>
                                                     <h:form>
-                                                        <h:commandButton value="Select" action="#{selectedBBean.addB()}">
-                                                            <f:setPropertyActionListener target="#{selectedBBean.selectedB}" value="#{bList}" />
-                                                            
+                                                        <h:commandButton value="Select" action="#{selectedBBean.addB()}" type="submit" >
+                                                            <f:setPropertyActionListener target="#{selectedBBean.selectedB}" value="#{bList}" />                                                           
                                                         </h:commandButton>
                                                     </h:form>
                                                 </h:column> 

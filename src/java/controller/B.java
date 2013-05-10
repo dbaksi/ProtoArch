@@ -28,6 +28,15 @@ public class B {
  
     }
         
+        public B(String b1, String b2, String b3, String b4, String b5) {
+        this.b1 = b1;
+        this.b2 = b2;
+        this.b3 = b3;
+        this.b4 = b4;
+        this.b5 = b5;
+ 
+    }        
+        
     public B() {
     }
 
