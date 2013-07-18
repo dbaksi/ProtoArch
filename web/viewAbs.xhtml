@@ -71,18 +71,27 @@
                                                 </h:column> 
                                                                     
                                                  <h:column>
-                                                    <f:facet name="header">Select</f:facet>
+                                                    <f:facet name="header">Delete</f:facet>
                                                     <h:form>
-                                                        <h:commandButton value="Select" action="#{selectedBBean.addB()}" type="submit" >
+                                                        <h:commandButton value="Delete" action="#{selectedBBean.deleteB()}" type="submit" >
                                                             <f:setPropertyActionListener target="#{selectedBBean.selectedB}" value="#{bList}" />                                                           
                                                         </h:commandButton>
                                                     </h:form>
                                                 </h:column> 
+                                                
+                                                <h:column>
+                                                    <f:facet name="header">Update</f:facet>
+                                                    <h:form>
+                                                        <h:commandButton value="Update" action="#{selectedBBean.updateB()}" type="submit" >
+                                                            <f:setPropertyActionListener target="#{selectedBBean.selectedB}" value="#{bList}" />                                                           
+                                                        </h:commandButton>
+                                                    </h:form>
+                                                </h:column>                                     
                                     
                                                 <h:column>
-                                                    <f:facet name="header">Create</f:facet>
+                                                    <f:facet name="header">CreateB</f:facet>
                                                     <h:form>
-                                                    <h:commandButton value="Create"   action="#{bsManagedBean.createAction(assocBs)}" />
+                                                    <h:commandButton value="CreateB"   action="#{bsManagedBean.createAction(assocBs)}" />
                                                     </h:form>
                                                 </h:column>
                                 </h:dataTable>

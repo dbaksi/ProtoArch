@@ -120,7 +120,7 @@ public class BsManagedBean implements Serializable {
        
         em.getTransaction().commit();
         em.refresh(anEnB);
-        
+        // Update the backing bean too
         AsManagedBean mainBean = (AsManagedBean)facesContext.getApplication().createValueBinding("#{asManagedBean}").getValue(facesContext);
         mainBean.updateAddBList(newB);        
         return ("viewAbs?faces-redirect=true");
@@ -153,6 +153,46 @@ public class BsManagedBean implements Serializable {
 
        return "viewAbs?faces-redirect=true";
 
+    }
+    
+    
+        //mainBean.updateAddBList(selectedB);
+        //return neededBean.updateAction(selectedB);
+        
+        public String updateAction(B b) { 
+            
+        em = getEntityManager();     
+      // Retrieve old values of B before the update from session
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);  
+        B oldB = (B) session.getAttribute("oldB");
+        
+        em.getTransaction().begin();
+
+        //Retreieve the actual corresponfing database entity to be updated
+        Query query=em.createNamedQuery("findB");
+        query.setParameter("first", oldB.b1);
+        query.setParameter("second", oldB.b2);
+        query.setParameter("third", oldB.b3);
+        query.setParameter("fourth", oldB.b4);        
+        query.setParameter("fifth", oldB.b5);        
+
+        BEntity aB = (BEntity) query.getSingleResult();
+        // Set the retrieved entity with updated values
+        aB.setB1(b1);
+        aB.setB2(b2);
+        aB.setB3(b3);
+        aB.setB4(b4);
+        aB.setB5(b5);
+       // Do the update
+        em.merge(aB);
+        em.getTransaction().commit();
+        //Update the managed bean too after removing the old and adding the new
+        AsManagedBean mainBean = (AsManagedBean)facesContext.getApplication().createValueBinding("#{asManagedBean}").getValue(facesContext);
+        mainBean.updateRemoveBList(oldB); 
+        mainBean.updateAddBList(new B(this.b1, this.b2, this.b3, this.b4, this.b5));
+        return "viewAbs?faces-redirect=true";
     }
     
     public String createAction(B b) { 

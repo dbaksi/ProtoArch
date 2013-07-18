@@ -28,7 +28,7 @@
                             <h:panelGrid columns="3"
                                        columnClasses="rightalign,leftalign,leftalign">                             
                                
-                                <h:dataTable value="#{asManagedBean.AList}" var="aList">
+                                <h:dataTable binding="#{selectedABean.datatableAs}" value="#{asManagedBean.AList}" var="aList">
                                                 <h:column>
                                                     <f:facet name="header">a1</f:facet>  
                                                     <h:outputText value="#{aList.a1}"/>
@@ -57,15 +57,19 @@
                                                     </h:form>
                                                 </h:column> 
                                                 <h:column>
-                                                    <f:facet name="header">Create</f:facet>
-                                                    <h:form>
-                                                    <h:commandButton value="Create"   action="#{asManagedBean.editAction(a)}" />
+                                                    <f:facet name="header">Update</f:facet>
+                                                    <h:form>                                                    
+                                                        <h:commandButton value="Update" action="#{selectedABean.updateA()}" type="submit">
+                                                            <f:setPropertyActionListener target="#{selectedABean.selectedA}" value="#{a}" /> 
+                                                        </h:commandButton>
                                                     </h:form>
                                                 </h:column>
                                                 <h:column>
                                                     <f:facet name="header">View</f:facet>
                                                     <h:form>
-                                                    <h:commandButton value="View"   action="#{asManagedBean.viewAction(a)}" />
+                                                        <h:commandButton value="View"   action="#{selectedABean.viewA()}" type="submit" >
+                                                            <f:setPropertyActionListener target="#{selectedABean.selectedA}" value="#{aList}" /> 
+                                                     </h:commandButton>
                                                     </h:form>
                                                 </h:column>  
           
@@ -73,7 +77,7 @@
 
                                  <h:form>
                                 <h:commandButton id="Home" value="Home" action="index" />
-                                <h:commandButton id="Create" value="Create an A" action="createAction(a)" />
+                                <h:commandButton id="Create" value="Create an A" action="#{asManagedBean.createAnA()}" />
                                 </h:form>
                                 
                             </h:panelGrid>

@@ -168,7 +168,7 @@ public class AsManagedBean implements Serializable {
         em.getTransaction().commit();
         setMyEntity(anEnA);
         
-     
+        // Stick the current state, i.e., this specific A to session
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
       
@@ -198,8 +198,16 @@ public class AsManagedBean implements Serializable {
         query.setParameter("first", a1);
         query.setParameter("second", a2);
         query.setParameter("third", a3);
+        query.setParameter("fourth", a4);
+        query.setParameter("fifth", a5);
 
         List<AEntity> aEList = query.getResultList();
+        
+        if (aEList.isEmpty()) {
+            Query q = em.createNamedQuery("findAllAs");
+            aEList = q.getResultList();
+         }
+         
         Iterator iter = aEList.iterator();
         aList.clear();
         while (iter.hasNext()) {
@@ -224,6 +232,41 @@ public class AsManagedBean implements Serializable {
         return aList;
         
     }
+    
+   /* 
+    public String processListAllAs() {
+        getListAAll();
+        return "listAllAs";
+    }
+    public List<A> getListAAll() {
+
+        em = getEntityManager();     
+        System.out.println("Inside list of A Query");
+       
+        Query query=em.createNamedQuery("findAllAs");
+
+        List<AEntity> aEList = query.getResultList();
+        Iterator iter = aEList.iterator();
+        aList.clear();
+        while (iter.hasNext()) {
+           
+        AEntity aA = (AEntity) iter.next();
+        A someA = new A();
+                    
+        someA.setA1((String) aA.getA1());
+        someA.setA2((String) aA.getA2());
+        someA.setA3((String) aA.getA3());        
+        someA.setA4((String) aA.getA4());        
+        someA.setA5((String) aA.getA5());        
+        System.out.println("Adding returned As to aList");
+        aList.add(someA);
+        }
+        
+        return aList;
+        
+    }
+
+    */
     
     public A getAnA() {
         
@@ -265,7 +308,7 @@ public class AsManagedBean implements Serializable {
         em = getEntityManager();     
         System.out.println("Inside testQuery");
         
-        SelectedBBean selB = new SelectedBBean();
+      //  SelectedBBean selB = new SelectedBBean();
        
         Query query=em.createNamedQuery("findAllBsForAA");
         query.setParameter("id", aid);
@@ -290,7 +333,7 @@ public class AsManagedBean implements Serializable {
         
         bList.add(someB);
         }
-        selB.setFavoriteBs(bList);
+        //selB.setFavoriteBs(bList);
         return bList;
     }
 
@@ -322,14 +365,42 @@ public class AsManagedBean implements Serializable {
     }
     
     public String editAction(A a) { 
+        
         em = getEntityManager();     
-        System.out.println("Inside update of A");
-        AEntity newEnA = new AEntity(this.getA1(), this.getA2(), this.getA3(), this.getA4(), this.getA5());
+      // Retrieve old values of B before the update from session
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);  
+        A oldA = (A) session.getAttribute("oldA");
+        
         em.getTransaction().begin();
-               
-        em.merge(newEnA);
+
+        //Retreieve the actual corresponfing database entity to be updated
+        Query query=em.createNamedQuery("findAnA");
+        query.setParameter("first", oldA.getA1());
+        query.setParameter("second", oldA.getA2());
+        query.setParameter("third", oldA.getA3());
+        query.setParameter("fourth", oldA.getA4());        
+        query.setParameter("fifth", oldA.getA5());        
+
+        AEntity aA = (AEntity) query.getSingleResult();
+        // Set the retrieved entity with updated values
+        aA.setA1(a1);
+        aA.setA2(a2);
+        aA.setA3(a3);                
+        aA.setA4(a4);
+        aA.setA5(a5);
+       // Do the update
+        em.merge(aA);
         em.getTransaction().commit();
-        return "listA?faces-redirect=true";
+        //Update the managed bean too after removing the old and adding the new
+        
+        aList.remove(oldA);
+        int i = aList.size();
+        aList.add(i, new A(this.a1, this.a2, this.a3, this.a4, this.a5));
+  //      AsManagedBean mainBean = (AsManagedBean)facesContext.getApplication().createValueBinding("#{asManagedBean}").getValue(facesContext);
+        return "viewAbs?faces-redirect=true";        
+
     }
 
     public String viewAction(A a) { 

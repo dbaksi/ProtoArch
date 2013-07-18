@@ -20,6 +20,14 @@ public class A {
         this.a5 = a5;
     }
     
+    public A(String a1, String a2, String a3, String a4, String a5) {
+        this.a1 = a1;
+        this.a2 = a2;
+        this.a3 = a3;
+        this.a4 = a4;
+        this.a5 = a5;
+    }    
+    
     public A(int a_id, String a1, String a2, String a3, String a4, String a5, Collection<B> myBs) {
         this.a_id = a_id;
         this.a1 = a1;

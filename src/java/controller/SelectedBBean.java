@@ -59,7 +59,7 @@ private BsManagedBean bBean;
         this.datatableBs = datatableBs;
     }
 
-    public String addB()
+    public String deleteB()
     {
         selectedB = (B) datatableBs.getRowData();
         
@@ -74,6 +74,29 @@ private BsManagedBean bBean;
         
     }
 
+    public String updateB()
+    {
+        // Get the selected row for update
+        selectedB = (B) datatableBs.getRowData();
+        // Get references to the associated managed beans for B and A respectively
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        BsManagedBean neededBean = (BsManagedBean)facesContext.getApplication().createValueBinding("#{bsManagedBean}").getValue(facesContext);
+        AsManagedBean mainBean = (AsManagedBean)facesContext.getApplication().createValueBinding("#{asManagedBean}").getValue(facesContext);
+        // Stick the data to be edited in the selected row to session ?
+       //  FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);   
+        session.setAttribute("oldB", selectedB);        
+        // Make the default values ready for the update B page to be redirected to...
+        neededBean.setB1(selectedB.getB1());
+        neededBean.setB2(selectedB.getB2());
+        neededBean.setB3(selectedB.getB3());
+        neededBean.setB4(selectedB.getB4());
+        neededBean.setB5(selectedB.getB5());
+        //mainBean.updateRemoveBList(selectedB);
+        
+        return "editB?faces-redirect=true";      
+    }    
+    
     public List<B> getFavoriteBs() {
         return favoriteBs;
     }

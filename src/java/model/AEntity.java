@@ -26,9 +26,9 @@ import javax.persistence.Table;
 @Table(name = "a", catalog = "protopatternsimplest", schema = "")
 
 @NamedQueries({
-@NamedQuery(name="allAs", query="SELECT a FROM AEntity a WHERE a.a_id > 1"),
-@NamedQuery(name="findAnA", query="SELECT a FROM AEntity a WHERE a.a1  = :first AND a.a2  = :second AND a.a3 = :third AND a.a4 = :fourth AND a.a5 =:fifth"),
-@NamedQuery(name="findAllAsForQuery", query="SELECT a FROM AEntity a WHERE a.a1  = :first OR a.a2 = :second OR a.a3 = :third")
+@NamedQuery(name="findAllAs", query="SELECT a FROM AEntity a"),
+@NamedQuery(name="findAnA", query="SELECT a FROM AEntity a WHERE a.a1 = :first AND a.a2 = :second AND a.a3 = :third AND a.a4 = :fourth AND a.a5 = :fifth "),
+@NamedQuery(name="findAllAsForQuery", query="SELECT a FROM AEntity a WHERE a.a1 = :first AND a.a2 = :second AND a.a3 = :third AND a.a4 = :fourth AND a.a5 = :fifth")
 })
 
 public class AEntity implements Serializable {
