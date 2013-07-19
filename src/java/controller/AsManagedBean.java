@@ -202,12 +202,12 @@ public class AsManagedBean implements Serializable {
         query.setParameter("fifth", a5);
 
         List<AEntity> aEList = query.getResultList();
-        
+        /*
         if (aEList.isEmpty()) {
             Query q = em.createNamedQuery("findAllAs");
             aEList = q.getResultList();
          }
-         
+         */
         Iterator iter = aEList.iterator();
         aList.clear();
         while (iter.hasNext()) {
@@ -312,12 +312,12 @@ public class AsManagedBean implements Serializable {
        
         Query query=em.createNamedQuery("findAllBsForAA");
         query.setParameter("id", aid);
-
+        System.out.println("After setting pk before querying related Bs");
         List<BEntity> bElist = query.getResultList();
         Iterator iter = bElist.iterator();
         bList.clear();
         while (iter.hasNext()) {
-           
+        System.out.println("Some related B has been found : inside the loop");  
         BEntity aB = (BEntity) iter.next();
         B someB = new B();
         
@@ -329,7 +329,9 @@ public class AsManagedBean implements Serializable {
         someB.setB3((String) aB.getB3());        
         someB.setB4((String) aB.getB4());        
         someB.setB5((String) aB.getB5());        
-        
+    
+        System.out.print(" First col of assocaited B : " + someB.getB1());
+        System.out.print(" Second col of assocaited B : " + someB.getB2());
         
         bList.add(someB);
         }
@@ -406,14 +408,14 @@ public class AsManagedBean implements Serializable {
     public String viewAction(A a) { 
         
         em = getEntityManager();     
-        System.out.println("Inside view of A Query");
+        System.out.println("Inside viewAction(A a)");
         
         Query query=em.createNamedQuery("findAnA");
-        query.setParameter("first", a1);
-        query.setParameter("second", a2);
-        query.setParameter("third", a3);
-        query.setParameter("fourth", a4);        
-        query.setParameter("fifth", a5);        
+        query.setParameter("first", a.getA1());
+        query.setParameter("second", a.getA2());
+        query.setParameter("third", a.getA3());
+        query.setParameter("fourth", a.getA4());        
+        query.setParameter("fifth", a.getA5());        
 
         AEntity anEnA = (AEntity) query.getSingleResult();
         setA1((String) anEnA.getA1());

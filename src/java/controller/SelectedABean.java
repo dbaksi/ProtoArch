@@ -59,33 +59,36 @@ private AsManagedBean aBean;
         this.datatableAs = datatableAs;
     }
 
-        public String viewA()
+    public String viewA()
     {
+        System.out.println("Inside SelectedABean.viewA()");
         // Get the selected row for update
         selectedA = (A) datatableAs.getRowData();
         // Get references to the associated managed beans for B and A respectively
+        
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AsManagedBean mainBean = (AsManagedBean)facesContext.getApplication().createValueBinding("#{asManagedBean}").getValue(facesContext);
-        mainBean.setA1(selectedA.getA1());
-        mainBean.setA2(selectedA.getA2());
-        mainBean.setA3(selectedA.getA3());
-        mainBean.setA4(selectedA.getA4());
-        mainBean.setA5(selectedA.getA5());
-        // Stick the data to be edited in the selected row to session ?
-       //  FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);   
-        session.setAttribute("oldA", selectedA);        
-        // Make the default values ready for the update B page to be redirected to...
-        /*
-        neededBean.setB1(selectedB.getB1());
-        neededBean.setB2(selectedB.getB2());
-        neededBean.setB3(selectedB.getB3());
-        neededBean.setB4(selectedB.getB4());
-        neededBean.setB5(selectedB.getB5());
-        */
-        //mainBean.updateRemoveBList(selectedB);
         
-        return "viewAbs?faces-redirect=true";      
+        EntityManager em = (EntityManager) Persistence.createEntityManagerFactory("MyPU").createEntityManager();     
+        //System.out.println("Inside viewAction(A a)");
+        
+        Query query=em.createNamedQuery("findAnA");
+        query.setParameter("first", selectedA.getA1());
+        query.setParameter("second", selectedA.getA2());
+        query.setParameter("third", selectedA.getA3());
+        query.setParameter("fourth", selectedA.getA4());        
+        query.setParameter("fifth", selectedA.getA5());        
+
+        AEntity anEnA = (AEntity) query.getSingleResult();  
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);     
+        session.setAttribute("refId", anEnA);  
+        Integer pk =  anEnA.getA_id();
+        System.out.println("Retrieved primary key of A is  :");
+        System.out.println(pk);
+        List<B> relatedBs = mainBean.getBList(pk);
+        mainBean.setBList(relatedBs);
+               
+       return "viewAbs?faces-redirect=true";      
     }  
     
     public String updateA()
@@ -100,15 +103,7 @@ private AsManagedBean aBean;
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);   
         session.setAttribute("oldA", selectedA);        
         // Make the default values ready for the update B page to be redirected to...
-        /*
-        neededBean.setB1(selectedB.getB1());
-        neededBean.setB2(selectedB.getB2());
-        neededBean.setB3(selectedB.getB3());
-        neededBean.setB4(selectedB.getB4());
-        neededBean.setB5(selectedB.getB5());
-        */
-        //mainBean.updateRemoveBList(selectedB);
-        
+            
         return "editA?faces-redirect=true";      
     }  
     
