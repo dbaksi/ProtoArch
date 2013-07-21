@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+        <h:head>
+        <title>Calculator Service</title>
+        </h:head>
+        <h:body>
+         <ui:composition template="./newTemplate.xhtml">            
+            <ui:define name="top">
+                top
+            </ui:define>
+            <ui:define name="left">
+                left
+            </ui:define>
+            <ui:define name="content">
+                        <h3>Result of computation</h3>     
+                        <h:form>
+                            <h:panelGrid columns="3"
+                                       columnClasses="rightalign,leftalign,leftalign">
+
+                                    <h:outputLabel value="result :" for="result"/>
+                                    <h:outputText value="#{wsManagedBean.result}" />
+                                    <h:message for="result" />
+                                 <h:commandButton id="Back" 
+                                                 value="Home"    action="index" >
+                                </h:commandButton>
+                            </h:panelGrid>
+
+                        </h:form>
+       
+          </ui:define> 
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>                   
+
+         </ui:composition>
+        </h:body>
+</html>
